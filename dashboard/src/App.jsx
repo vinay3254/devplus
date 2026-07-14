@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Login from "./pages/Login";
 import Snaps from "./pages/Snaps";
+import Review from "./pages/Review";
 import { isLoggedIn, logout } from "./api";
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         </button>
       </header>
       {view === "snaps" && <Snaps />}
-      {view === "review" && <p>Review mode coming soon.</p>}
+      {view === "review" && <Review />}
     </div>
   );
 }

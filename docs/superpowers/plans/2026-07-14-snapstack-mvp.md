@@ -803,13 +803,16 @@ def save_snap(url, title, raw_text):
         pass
 
     now = _now_iso()
+    # due_date is a date-only string (matching review_service's date-only
+    # comparisons) so newly captured snaps are immediately due for review.
+    due_date = datetime.date.today().isoformat()
     conn = get_connection(config.DB_PATH)
     cursor = conn.execute(
         """
         INSERT INTO snaps (url, title, raw_text, summary, category, tags, created_at, due_date)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
-        (url, title, raw_text, summary, category, ",".join(tags), now, now),
+        (url, title, raw_text, summary, category, ",".join(tags), now, due_date),
     )
     snap_id = cursor.lastrowid
     conn.commit()
