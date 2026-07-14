@@ -14,6 +14,7 @@
 - Auth: single-user JWT, no public register endpoint — the one user account is created via a one-time local script, not an API route.
 - Deployment: local-only — backend binds to localhost, not exposed to LAN/internet in v1.
 - Backend tests: standalone `test_*.py` scripts at `backend/` root, plain `assert` statements, run individually via `python test_x.py` — **not** pytest-discovered, matching this project's own convention.
+- Backend dependencies install into an isolated `backend/.venv` (created via `python -m venv .venv`), never into the global Python environment. All `python`/`pip` commands in this plan assume that venv is activated, or use its interpreter directly (e.g. `.venv/Scripts/python.exe` on Windows).
 - Dashboard: Vite + React, no test runner — verified via dev server + manual exercise, matching `chatbot-ui-vite/` convention.
 - Extension: Manifest V3, Chrome + Firefox — no automated tests, manual checklist verification only.
 - No offline queueing or automatic retry anywhere in v1 (extension capture failures and Ollama summarization failures both surface an error/manual-retry path instead).
@@ -93,10 +94,12 @@ Flask==3.0.3
 flask-cors==4.0.1
 PyJWT==2.8.0
 requests==2.32.3
-faiss-cpu==1.8.0
-numpy==1.26.4
+faiss-cpu==1.14.3
+numpy==2.4.6
 python-dotenv==1.0.1
 ```
+
+(`faiss-cpu`/`numpy` versions pinned to whatever has a prebuilt wheel for your Python version — bump if `pip install` reports no matching distribution.)
 
 - [ ] **Step 2: Create `backend/config.py`**
 
@@ -211,15 +214,18 @@ data/
 .env
 __pycache__/
 *.pyc
+.venv/
 ```
 
 - [ ] **Step 7: Verify the app boots**
 
 ```bash
 cd backend
-pip install -r requirements.txt
+python -m venv .venv
+./.venv/Scripts/python.exe -m pip install --upgrade pip
+./.venv/Scripts/python.exe -m pip install -r requirements.txt
 cp .env.example .env
-python app.py
+./.venv/Scripts/python.exe app.py
 ```
 
 In another terminal:
