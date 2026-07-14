@@ -943,6 +943,7 @@ from app import create_app
 def seed_snaps():
     init_db(config.DB_PATH)
     conn = get_connection(config.DB_PATH)
+    conn.execute("DELETE FROM snaps")
     conn.execute(
         "INSERT INTO snaps (id, url, title, raw_text, summary, category, tags, created_at, due_date) "
         "VALUES (1, 'http://a.com', 'Binary Search', 'binary search algorithm notes', "
@@ -1234,6 +1235,7 @@ def test_sm2_again_resets_repetitions_and_interval():
 def seed_due_snap():
     init_db(config.DB_PATH)
     conn = get_connection(config.DB_PATH)
+    conn.execute("DELETE FROM snaps")
     yesterday = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
     conn.execute(
         "INSERT INTO snaps (id, url, title, raw_text, summary, category, tags, "
