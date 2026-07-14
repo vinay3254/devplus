@@ -13,7 +13,9 @@ def create_app():
     init_db(config.DB_PATH)
 
     from services.auth import bp as auth_bp
+    from services.capture_service import bp as capture_bp
     app.register_blueprint(auth_bp)
+    app.register_blueprint(capture_bp)
 
     @app.route("/api/health")
     def health():
