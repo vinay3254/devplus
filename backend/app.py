@@ -15,9 +15,11 @@ def create_app():
     from services.auth import bp as auth_bp
     from services.capture_service import bp as capture_bp
     from services.search_service import bp as snaps_bp
+    from services.review_service import bp as review_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(capture_bp)
     app.register_blueprint(snaps_bp)
+    app.register_blueprint(review_bp)
 
     @app.route("/api/health")
     def health():
