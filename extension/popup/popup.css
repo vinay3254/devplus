@@ -1,0 +1,15 @@
+body {
+  width: 220px;
+  font-family: sans-serif;
+  padding: 12px;
+}
+input,
+button {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+#error {
+  color: #c0392b;
+  font-size: 12px;
+}

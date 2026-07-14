@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SnapStack</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div id="root">
+      <h1>SnapStack</h1>
+      <div id="logged-out">
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="login-btn">Log in</button>
+        <p id="error"></p>
+      </div>
+      <div id="logged-in" hidden>
+        <p>Logged in.</p>
+        <button id="logout-btn">Log out</button>
+        <a href="http://localhost:5173" target="_blank">Open dashboard</a>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
