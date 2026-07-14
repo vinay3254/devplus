@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "SnapStack",
+  "version": "1.0.0",
+  "description": "Capture highlighted text into SnapStack for later review.",
+  "icons": { "128": "icon128.png" },
+  "permissions": ["contextMenus", "storage", "notifications"],
+  "host_permissions": ["http://localhost:5100/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "SnapStack"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "snapstack@devplus.local",
+      "strict_min_version": "109.0"
+    }
+  }
+}
