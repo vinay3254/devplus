@@ -80,3 +80,27 @@ export async function gradeSnap(snapId, grade) {
   if (!resp.ok) throw new Error("Grading failed");
   return resp.json();
 }
+
+export async function updateSnap(snapId, fields) {
+  const resp = await authedFetch(`${API_URL}/api/snaps/${snapId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(fields),
+  });
+  if (!resp.ok) throw new Error("Update failed");
+  return resp.json();
+}
+
+export async function deleteSnap(snapId) {
+  const resp = await authedFetch(`${API_URL}/api/snaps/${snapId}`, {
+    method: "DELETE",
+  });
+  if (!resp.ok) throw new Error("Delete failed");
+  return resp.json();
+}
+
+export async function getReviewStats() {
+  const resp = await authedFetch(`${API_URL}/api/review/stats`);
+  if (!resp.ok) throw new Error("Failed to load stats");
+  return resp.json();
+}

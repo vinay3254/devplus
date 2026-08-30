@@ -2,6 +2,7 @@ import { useState } from "react";
 import Login from "./pages/Login";
 import Snaps from "./pages/Snaps";
 import Review from "./pages/Review";
+import Stats from "./pages/Stats";
 import { isLoggedIn, logout } from "./api";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <nav>
           <button onClick={() => setView("snaps")}>Snaps</button>
           <button onClick={() => setView("review")}>Review</button>
+          <button onClick={() => setView("stats")}>Stats</button>
         </nav>
         <button
           onClick={() => {
@@ -31,6 +33,7 @@ function App() {
       </header>
       {view === "snaps" && <Snaps />}
       {view === "review" && <Review />}
+      {view === "stats" && <Stats />}
     </div>
   );
 }

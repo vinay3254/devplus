@@ -22,6 +22,13 @@ CREATE TABLE IF NOT EXISTS snaps (
     easiness_factor REAL NOT NULL DEFAULT 2.5,
     due_date TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS review_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    snap_id INTEGER NOT NULL,
+    graded_at TEXT NOT NULL,
+    grade TEXT NOT NULL
+);
 """
 
 

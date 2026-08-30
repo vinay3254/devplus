@@ -6,6 +6,7 @@ export default function Snaps() {
   const [snaps, setSnaps] = useState([]);
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
+  const [filter, setFilter] = useState(null);
 
   useEffect(() => {
     loadAll();
@@ -42,6 +43,12 @@ export default function Snaps() {
     }
   }
 
+  const visibleSnaps = filter
+    ? snaps.filter((snap) =>
+        filter.type === "tag" ? snap.tags.includes(filter.value) : snap.category === filter.value
+      )
+    : snaps;
+
   return (
     <div>
       <form onSubmit={handleSearch}>
@@ -53,10 +60,23 @@ export default function Snaps() {
         />
         <button type="submit">Search</button>
       </form>
+      {filter && (
+        <p>
+          Filtered by {filter.type}: <strong>{filter.value}</strong>{" "}
+          <button onClick={() => setFilter(null)}>Clear filter ×</button>
+        </p>
+      )}
       {error && <p role="alert">{error}</p>}
       <div>
-        {snaps.map((snap) => (
-          <SnapCard key={snap.id} snap={snap} onRetry={() => handleRetry(snap.id)} />
+        {visibleSnaps.map((snap) => (
+          <SnapCard
+            key={snap.id}
+            snap={snap}
+            onRetry={() => handleRetry(snap.id)}
+            onChanged={loadAll}
+            onFilterTag={(tag) => setFilter({ type: "tag", value: tag })}
+            onFilterCategory={(category) => setFilter({ type: "category", value: category })}
+          />
         ))}
       </div>
     </div>

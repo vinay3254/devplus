@@ -47,6 +47,7 @@ cd backend
 ./.venv/Scripts/python.exe test_capture_service.py
 ./.venv/Scripts/python.exe test_search_service.py
 ./.venv/Scripts/python.exe test_review_service.py
+./.venv/Scripts/python.exe test_snap_management.py
 ```
 
 ### Dashboard
@@ -58,12 +59,14 @@ cp .env.example .env
 npm run dev   # serves on :5173
 ```
 
-### Extension
+### Extension (Chrome only)
 
-1. `chrome://extensions` (or `about:debugging` in Firefox) → enable Developer mode.
+1. `chrome://extensions` → enable Developer mode.
 2. "Load unpacked" → select the `extension/` directory.
 3. Click the SnapStack toolbar icon and log in with the user you created above.
-4. Highlight text on any page → right-click → "Add to SnapStack".
+4. Highlight text on any page → right-click → "Add to SnapStack", or press `Ctrl+Shift+S`
+   (`Cmd+Shift+S` on Mac) to capture without the menu. Remap the shortcut anytime at
+   `chrome://extensions/shortcuts`.
 
 ## Status
 

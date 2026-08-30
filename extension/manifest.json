@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Capture highlighted text into SnapStack for later review.",
   "icons": { "128": "icon128.png" },
-  "permissions": ["contextMenus", "storage", "notifications"],
+  "permissions": ["contextMenus", "storage", "notifications", "activeTab", "scripting"],
   "host_permissions": ["http://localhost:5100/*"],
   "background": {
     "service_worker": "background.js"
@@ -13,10 +13,10 @@
     "default_popup": "popup/popup.html",
     "default_title": "SnapStack"
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "snapstack@devplus.local",
-      "strict_min_version": "109.0"
+  "commands": {
+    "capture-selection": {
+      "suggested_key": { "default": "Ctrl+Shift+S", "mac": "Command+Shift+S" },
+      "description": "Save the current text selection to SnapStack"
     }
   }
 }

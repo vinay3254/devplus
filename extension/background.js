@@ -16,6 +16,18 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   await captureSelection(info.selectionText, tab.url, tab.title);
 });
 
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command !== "capture-selection") return;
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab) return;
+  const [{ result: selectionText }] = await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: () => window.getSelection().toString(),
+  });
+  if (!selectionText) return;
+  await captureSelection(selectionText, tab.url, tab.title);
+});
+
 async function captureSelection(text, url, title) {
   const { snapstack_token: token } = await chrome.storage.local.get("snapstack_token");
 

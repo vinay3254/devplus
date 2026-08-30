@@ -32,6 +32,14 @@ def add(snap_id, vector):
         faiss.write_index(index, config.FAISS_INDEX_PATH)
 
 
+def remove(snap_id):
+    with _lock:
+        index = _load()
+        index.remove_ids(np.array([snap_id], dtype="int64"))
+        os.makedirs(os.path.dirname(config.FAISS_INDEX_PATH), exist_ok=True)
+        faiss.write_index(index, config.FAISS_INDEX_PATH)
+
+
 def search(vector, k=10):
     with _lock:
         index = _load()
